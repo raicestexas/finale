@@ -14,7 +14,7 @@ describe('Associations(HasOne)', function() {
       username: { type: test.Sequelize.STRING, unique: true },
       email: { type: test.Sequelize.STRING, unique: true, validate: { isEmail: true } }
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
@@ -25,7 +25,7 @@ describe('Associations(HasOne)', function() {
       postal_code: { type: test.Sequelize.STRING },
       country_code: { type: test.Sequelize.STRING }
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
@@ -100,7 +100,7 @@ describe('Associations(HasOne)', function() {
             state_province: 'London',
             postal_code: 'NW1',
             country_code: '44',
-            user_id: 1
+            userId: 1
           }
         };
 
@@ -125,7 +125,7 @@ describe('Associations(HasOne)', function() {
             state_province: 'Brussels',
             postal_code: '1020',
             country_code: '32',
-            user_id: 2
+            userId: 2
           }
         };
 
@@ -149,7 +149,7 @@ describe('Associations(HasOne)', function() {
           state_province: 'London',
           postal_code: 'NW1',
           country_code: '44',
-          user_id: 1
+          userId: 1
         };
 
         expect(result).to.eql(expected);
@@ -190,7 +190,7 @@ describe('Associations(HasOne)', function() {
           state_province: 'Brussels',
           postal_code: '1020',
           country_code: '32',
-          user_id: 2
+          userId: 2
         };
 
         expect(result).to.eql(expected);

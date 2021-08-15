@@ -12,21 +12,21 @@ describe('ShallowAndChildren', function() {
     test.models.User = test.db.define('users', {
       name: test.Sequelize.STRING
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
     test.models.App = test.db.define('apps', {
       name: test.Sequelize.STRING
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
     test.models.Task = test.db.define('tasks', {
       name: test.Sequelize.STRING
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
@@ -82,13 +82,13 @@ describe('ShallowAndChildren', function() {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql({
           "app": null,
-          "app_id": null,
+          "appId": null,
           "id": 1,
           "name": "sumo",
           "tasks": [
-            {id: 1, name: 'eat', user_id: 1},
-            {id: 2, name: 'sleep', user_id: 1},
-            {id: 3, name: 'eat again', user_id: 1}
+            {id: 1, name: 'eat', userId: 1},
+            {id: 2, name: 'sleep', userId: 1},
+            {id: 3, name: 'eat again', userId: 1}
           ]
         });
         done();
@@ -108,7 +108,7 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql({
-          "app_id": null,
+          "appId": null,
           "id": 1,
           "name": "sumo"
         });
@@ -129,13 +129,13 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql({
-          "app_id": null,
+          "appId": null,
           "id": 1,
           "name": "sumo",
           "tasks": [
-            {id: 1, name: 'eat', user_id: 1},
-            {id: 2, name: 'sleep', user_id: 1},
-            {id: 3, name: 'eat again', user_id: 1}
+            {id: 1, name: 'eat', userId: 1},
+            {id: 2, name: 'sleep', userId: 1},
+            {id: 3, name: 'eat again', userId: 1}
           ]
         });
         done();
@@ -153,13 +153,13 @@ describe('ShallowAndChildren', function() {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql({
           "app" : null,
-          "app_id": null,
+          "appId": null,
           "id": 1,
           "name": "sumo",
           "tasks": [
-            {id: 1, name: 'eat', user_id: 1},
-            {id: 2, name: 'sleep', user_id: 1},
-            {id: 3, name: 'eat again', user_id: 1}
+            {id: 1, name: 'eat', userId: 1},
+            {id: 2, name: 'sleep', userId: 1},
+            {id: 3, name: 'eat again', userId: 1}
           ]
         });
         done();
@@ -183,7 +183,7 @@ describe('ShallowAndChildren', function() {
       }, function(error, response, body) {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
-        expect(result).to.eql({ id: 1, name: 'eat', user_id: 1 });
+        expect(result).to.eql({ id: 1, name: 'eat', userId: 1 });
         done();
       });
     });
@@ -198,9 +198,9 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql([
-          { id: 1, name: 'eat', user_id: 1 },
-          { id: 2, name: 'sleep', user_id: 1 },
-          { id: 3, name: 'eat again', user_id: 1 }
+          { id: 1, name: 'eat', userId: 1 },
+          { id: 2, name: 'sleep', userId: 1 },
+          { id: 3, name: 'eat again', userId: 1 }
         ]);
 
         done();
@@ -220,9 +220,9 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql([
-          { id: 1, name: 'eat', user_id: 1 },
-          { id: 2, name: 'sleep', user_id: 1 },
-          { id: 3, name: 'eat again', user_id: 1 }
+          { id: 1, name: 'eat', userId: 1 },
+          { id: 2, name: 'sleep', userId: 1 },
+          { id: 3, name: 'eat again', userId: 1 }
         ]);
 
         done();
@@ -242,8 +242,8 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql([
-          {   app_id: null, id: 1, name: "sumo" },
-          {   app_id: null, id: 2, name: "ninja" },
+          {   appId: null, id: 1, name: "sumo" },
+          {   appId: null, id: 2, name: "ninja" },
         ]);
 
         done();
@@ -262,13 +262,13 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql([
-          {   app_id: null, id: 1, name: "sumo", tasks: [
-            { id: 1, name: 'eat', user_id: 1 },
-            { id: 3, name: 'eat again', user_id: 1 },
-            { id: 2, name: 'sleep', user_id: 1 },
+          {   appId: null, id: 1, name: "sumo", tasks: [
+            { id: 1, name: 'eat', userId: 1 },
+            { id: 3, name: 'eat again', userId: 1 },
+            { id: 2, name: 'sleep', userId: 1 },
           ] },
-          {   app_id: null, id: 2, name: "ninja", tasks: [
-            { id: 4, name: 'fight', user_id: 2 },
+          {   appId: null, id: 2, name: "ninja", tasks: [
+            { id: 4, name: 'fight', userId: 2 },
           ]},
         ]);
 
@@ -289,13 +289,13 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql([
-          {  app: null, app_id: null, id: 1, name: "sumo", tasks: [
-            { id: 1, name: 'eat', user_id: 1 },
-            { id: 3, name: 'eat again', user_id: 1 },
-            { id: 2, name: 'sleep', user_id: 1 },
+          {  app: null, appId: null, id: 1, name: "sumo", tasks: [
+            { id: 1, name: 'eat', userId: 1 },
+            { id: 3, name: 'eat again', userId: 1 },
+            { id: 2, name: 'sleep', userId: 1 },
           ] },
-          {  app: null,  app_id: null, id: 2, name: "ninja", tasks: [
-            { id: 4, name: 'fight', user_id: 2 },
+          {  app: null,  appId: null, id: 2, name: "ninja", tasks: [
+            { id: 4, name: 'fight', userId: 2 },
           ]},
         ]);
 
@@ -311,13 +311,13 @@ describe('ShallowAndChildren', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql([
-          {  app: null, app_id: null, id: 1, name: "sumo", tasks: [
-            { id: 1, name: 'eat', user_id: 1 },
-            { id: 3, name: 'eat again', user_id: 1 },
-            { id: 2, name: 'sleep', user_id: 1 },
+          {  app: null, appId: null, id: 1, name: "sumo", tasks: [
+            { id: 1, name: 'eat', userId: 1 },
+            { id: 3, name: 'eat again', userId: 1 },
+            { id: 2, name: 'sleep', userId: 1 },
           ] },
-          {  app: null,  app_id: null, id: 2, name: "ninja", tasks: [
-            { id: 4, name: 'fight', user_id: 2 },
+          {  app: null,  appId: null, id: 2, name: "ninja", tasks: [
+            { id: 4, name: 'fight', userId: 2 },
           ]},
         ]);
 

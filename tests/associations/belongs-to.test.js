@@ -61,7 +61,7 @@ describe('Associations(BelongsTo)', function() {
     });
     test.models.Yuppie.belongsTo(test.models.Address);
 
-    test.models.User.belongsTo(test.models.Address);  // user has an address_id
+    test.models.User.belongsTo(test.models.Address);  // user has an addressId
     test.models.Person.belongsTo(test.models.Address, {
       as: 'addy',
       foreignKey: 'addy_id'
@@ -179,7 +179,7 @@ describe('Associations(BelongsTo)', function() {
           id: 1,
           username: 'sherlock',
           email: 'sherlock@holmes.com',
-          address_id: 1,
+          addressId: 1,
           address: {
             id: 1,
             street: '221B Baker Street',
@@ -343,7 +343,7 @@ describe('Associations(BelongsTo)', function() {
           var expectedResult = entry.user;
           expectedResult.id = user.id;
           expectedResult.address = address.dataValues;
-          expectedResult.address_id = address.dataValues.id;
+          expectedResult.addressId = address.dataValues.id;
           test.expectedResults.push(expectedResult);
 
           return user.setAddress(address);
@@ -367,7 +367,7 @@ describe('Associations(BelongsTo)', function() {
 
     it('should pass query parameters to search', function(done) {
       request.get({
-        url: test.baseUrl + '/usersWithoutInclude?address_id=1'
+        url: test.baseUrl + '/usersWithoutInclude?addressId=1'
       }, function(error, response, body) {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
@@ -378,7 +378,7 @@ describe('Associations(BelongsTo)', function() {
           id: 1,
           username: 'sherlock',
           email: 'sherlock@gmail.com',
-          address_id: 1
+          addressId: 1
         };
 
         expect(actual).to.eql(expected);
@@ -447,7 +447,7 @@ describe('Associations(BelongsTo)', function() {
       }, function(error, response, body) {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql(test.expectedResults.map(function(i) {
-          delete i.address_id;
+          delete i.addressId;
           return i;
         }));
         done();
@@ -516,8 +516,8 @@ describe('Associations(BelongsTo)', function() {
         json: {}
       }, function(error, response, body) {
         var result = _.isObject(body) ? body : JSON.parse(body);
-        expect(result.address_id).to.exist;
-        expect(result.address_id).to.be.eql(1);
+        expect(result.addressId).to.exist;
+        expect(result.addressId).to.be.eql(1);
         done();
       });
     });
@@ -526,12 +526,14 @@ describe('Associations(BelongsTo)', function() {
       request.put({
         url: test.baseUrl + '/yuppies/1',
         json: {
-          address_id: 2
+          addressId: 2
         }
       }, function(error, response, body) {
         var result = _.isObject(body) ? body : JSON.parse(body);
+        console.log(result, result.address);
+        console.log("test address: ", test.addresses[1]);
         expect(result.address).to.be.an('object');
-        expect(result.address_id).to.be.eql(2);
+        expect(result.addressId).to.be.eql(2);
         expect(result.address).to.eql(test.addresses[1]);
         done();
       });
@@ -541,7 +543,7 @@ describe('Associations(BelongsTo)', function() {
       request.put({
         url: test.baseUrl + '/users/1',
         json: {
-          address_id: 2
+          addressId: 2
         }
       }, function(error, response, body) {
         var result = _.isObject(body) ? body : JSON.parse(body);
@@ -562,7 +564,7 @@ describe('Associations(BelongsTo)', function() {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result.address).to.be.an('object');
         expect(result.address.id).to.be.eql(2);
-        expect(result.address_id).to.be.eql(2);
+        expect(result.addressId).to.be.eql(2);
         done();
       });
     });
@@ -571,13 +573,13 @@ describe('Associations(BelongsTo)', function() {
       request.put({
         url: test.baseUrl + '/usersWithoutFK/1',
         json: {
-          address_id: 2
+          addressId: 2
         }
       }, function(error, response, body) {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result.address).to.be.an('object');
         expect(result.address.id).to.be.eql(2);
-        expect(result).to.not.contain.key('address_id');
+        expect(result).to.not.contain.key('addressId');
         done();
       });
     });
@@ -690,7 +692,7 @@ describe('Associations(BelongsTo)', function() {
       }, function(error, response, body) {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result.username).to.be.eql('paddington');
-        expect(result.address_id).to.be.eql(3);
+        expect(result.addressId).to.be.eql(3);
         expect(result.address).to.be.an('object');
         expect(result.address.id).to.be.eql(3);
         done();
@@ -707,7 +709,7 @@ describe('Associations(BelongsTo)', function() {
       }, function(error, response, body) {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result.username).to.be.eql('sherlock');
-        expect(result.address_id).to.be.eql(2);
+        expect(result.addressId).to.be.eql(2);
         expect(result.address).to.be.an('object');
         expect(result.address.id).to.be.eql(2);
         done();
@@ -725,7 +727,7 @@ describe('Associations(BelongsTo)', function() {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result.username).to.be.eql('sherlock');
         expect(result).to.not.contain.key('address');
-        expect(result.address_id).to.be.eql(2);
+        expect(result.addressId).to.be.eql(2);
         done();
       });
     });

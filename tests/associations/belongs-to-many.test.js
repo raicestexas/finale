@@ -100,23 +100,28 @@ describe('Associations(BelongsToMany)', function() {
       request.get({
         url: test.baseUrl + '/people/1'
       }, function(error, response, body) {
+        if(error) { 
+          console.error(error);
+        }
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
+
+        console.log("result", result, JSON.stringify(result));
         expect(result).to.eql({
           id: 1, name: 'Mr 1',
           'hobbies': [{
             "id": 1,
             "name": "Azerty",
             "person_hobbies": {
-              "hobby_id": 1,
-              "person_id": 1
+              "hobbyId": 1,
+              "personId": 1
             }
           },{
             "id": 2,
             "name": "Querty",
             "person_hobbies": {
-              "hobby_id": 2,
-              "person_id": 1
+              "hobbyId": 2,
+              "personId": 1
             }
           }]
         });

@@ -12,21 +12,21 @@ describe('Associations(HasMany)', function() {
     test.models.User = test.db.define('users', {
       name: test.Sequelize.STRING
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
     test.models.App = test.db.define('apps', {
       name: test.Sequelize.STRING
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
     test.models.Task = test.db.define('tasks', {
       name: test.Sequelize.STRING
     }, {
-      underscored: true,
+      underscored: false,
       timestamps: false
     });
 
@@ -79,15 +79,16 @@ describe('Associations(HasMany)', function() {
       }, function (error, response, body) {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
+        console.log("Result, ", result);
         expect(result).to.eql({
           "app": null,
-          "app_id": null,
+          "appId": null,
           "id": 1,
           "name": "sumo",
           "tasks": [
-            {id: 1, name: 'eat', user_id: 1},
-            {id: 2, name: 'sleep', user_id: 1},
-            {id: 3, name: 'eat again', user_id: 1}
+            {id: 1, name: 'eat', userId: 1},
+            {id: 2, name: 'sleep', userId: 1},
+            {id: 3, name: 'eat again', userId: 1}
           ]
         });
         done();
@@ -102,11 +103,11 @@ describe('Associations(HasMany)', function() {
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql({
           "app": null,
-          "app_id": null,
+          "appId": null,
           "id": 2,
           "name": "ninja",
           "tasks": [
-            {id: 4, name: 'fight', user_id: 2}
+            {id: 4, name: 'fight', userId: 2}
           ]
         });
         done();
@@ -122,7 +123,7 @@ describe('Associations(HasMany)', function() {
       }, function(error, response, body) {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
-        expect(result).to.eql({ id: 1, name: 'eat', user_id: 1 });
+        expect(result).to.eql({ id: 1, name: 'eat', userId: 1 });
         done();
       });
     });
@@ -134,6 +135,8 @@ describe('Associations(HasMany)', function() {
       }, function(error, response, body) {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
+
+        console.log("foreign key removal test raw result",result);
         expect(result).to.eql({ id: 1, name: 'eat' });
 
         test.resource.associationOptions.removeForeignKeys = false;
@@ -150,9 +153,9 @@ describe('Associations(HasMany)', function() {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
         expect(result).to.eql([
-          { id: 1, name: 'eat', user_id: 1 },
-          { id: 2, name: 'sleep', user_id: 1 },
-          { id: 3, name: 'eat again', user_id: 1 }
+          { id: 1, name: 'eat', userId: 1 },
+          { id: 2, name: 'sleep', userId: 1 },
+          { id: 3, name: 'eat again', userId: 1 }
         ]);
 
         done();
@@ -183,7 +186,7 @@ describe('Associations(HasMany)', function() {
       }, function(error, response, body) {
         expect(response.statusCode).to.equal(200);
         var result = _.isObject(body) ? body : JSON.parse(body);
-        expect(result).to.eql([ { id: 4, name: 'fight', user_id: 2 } ]);
+        expect(result).to.eql([ { id: 4, name: 'fight', userId: 2 } ]);
 
         done();
       });
