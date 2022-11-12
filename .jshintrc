@@ -17,10 +17,10 @@
   "strict": true,
   "trailing":true,
   "undef":true,
-  "esnext":true,
   "unused":"vars",
   "nonbsp": true,
   "maxdepth": 8,
+  "esversion": 9,
   "globals": {
     "Promise": true
   },
